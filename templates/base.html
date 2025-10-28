@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}کتابخانه{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+  <style>
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <ul>
+      <li><a class="btn" href="{% url 'books:list' %}">خانه</a></li>
+      {% if user.is_authenticated %}
+        <li>
+          <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-logout">خروج</button>
+          </form>
+        </li>
+      {% else %}
+        <li><a class="btn" href="{% url 'login' %}">ورود</a></li>
+        <li><a class="btn btn-register" href="{% url 'register' %}">ثبت‌نام</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <form action="{% url 'books:list' %}" method="get">
+    <input type="text" name="q" placeholder="جستجوی کتاب..." value="{{ q|default:'' }}">
+    <button type="submit">جستجو</button>
+  </form>
+</header>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <p> کتابخانه </p>
+</footer>
+
+</body>
+</html>

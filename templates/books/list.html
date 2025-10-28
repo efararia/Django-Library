@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}لیست کتاب‌ها{% endblock %}
+
+{% block content %}
+  {% if q %}
+      <h2>نتایج جستجو برای "{{ q }}"</h2>
+  {% else %}
+      <h2>لیست همه کتاب‌ها</h2>
+  {% endif %}
+
+  <div class="books-grid">
+    {% for book in books %}
+      <div class="book-card">
+        <h3><a href="{% url 'books:detail' book.id %}">{{ book.title }}</a></h3>
+        <p>{{ book.author }}</p>
+        <p><small>{{ book.year }} | {{ book.category }}</small></p>
+      </div>
+    {% empty %}
+      <p>کتابی پیدا نشد.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

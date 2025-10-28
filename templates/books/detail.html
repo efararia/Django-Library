@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+  <div class="book-detail">
+    <h2>{{ book.title }}</h2>
+    <p><strong>نویسنده:</strong> {{ book.author }}</p>
+    <p><strong>سال:</strong> {{ book.year }}</p>
+    <p><strong>دسته:</strong> {{ book.category }}</p>
+    <p>{{ book.description }}</p>
+  </div>
+
+  {% if related %}
+    <div class="related-books">
+      <h3>کتاب‌های مشابه</h3>
+      <ul>
+        {% for r in related %}
+          <li><a href="{% url 'books:detail' r.id %}">{{ r.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}ثبت‌نام{% endblock %}
+
+{% block content %}
+<h2>ثبت‌نام کاربر جدید</h2>
+
+<form method="post" class="register-form">
+  {% csrf_token %}
+  <label for="username">نام کاربری:</label>
+  <input type="text" name="username" id="username" required>
+
+  <label for="email">ایمیل:</label>
+  <input type="email" name="email" id="email" required>
+
+  <label for="password1">رمز عبور:</label>
+  <input type="password" name="password1" id="password1" required>
+
+  <label for="password2">تکرار رمز عبور:</label>
+  <input type="password" name="password2" id="password2" required>
+
+  <button type="submit" class="btn btn-register">ثبت‌نام</button>
+</form>
+
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+{% endblock %}
