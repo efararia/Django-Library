@@ -6,7 +6,54 @@
     <h2>{{ book.title }}</h2>
     <p><strong>نویسنده:</strong> {{ book.author }}</p>
     <p><strong>سال:</strong> {{ book.year }}</p>
-    <p><strong>دسته:</strong> {{ book.category }}</p>
+    <p><strong>دسته:</strong> {% for cat in book.category.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    
+    <div class="book-rating">
+      <div class="rating-display">
+        <span class="rating-stars">
+          {% for i in "12345" %}
+            {% if book.rating >= forloop.counter %}
+              <span class="star filled">★</span>
+            {% else %}
+              <span class="star">☆</span>
+            {% endif %}
+          {% endfor %}
+        </span>
+        <span class="rating-value">{{ book.rating|floatformat:1 }}</span>
+        {% if rating_count > 0 %}
+          <span class="rating-count">({{ rating_count }} نظر)</span>
+        {% else %}
+          <span class="rating-count">(بدون نظر)</span>
+        {% endif %}
+      </div>
+    </div>
+    
+    {% if user.is_authenticated %}
+      <div class="rating-form-section">
+        {% if user_rating %}
+          <p><strong>رتبه‌بندی شما:</strong> 
+            <span class="user-rating-stars">
+              {% for i in "12345" %}
+                {% if user_rating.rating >= forloop.counter %}
+                  <span class="star-small filled">★</span>
+                {% else %}
+                  <span class="star-small">☆</span>
+                {% endif %}
+              {% endfor %}
+            </span>
+            ({{ user_rating.rating }} از 5)
+          </p>
+          <a href="{% url 'books:submit_rating' book.id %}" class="btn btn-rating">تغییر رتبه‌بندی</a>
+        {% else %}
+          <a href="{% url 'books:submit_rating' book.id %}" class="btn btn-rating">ثبت رتبه‌بندی</a>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="rating-form-section">
+        <p style="color: #666; font-size: 14px;">برای ثبت رتبه‌بندی باید <a href="{% url 'login' %}">وارد شوید</a></p>
+      </div>
+    {% endif %}
+    
     <p>{{ book.description }}</p>
   </div>
 

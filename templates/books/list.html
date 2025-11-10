@@ -2,6 +2,36 @@
 {% block title %}لیست کتاب‌ها{% endblock %}
 
 {% block content %}
+  {% if suggested_books %}
+    <div style="margin-bottom: 40px;">
+      <h2>پیشنهاد ویژه برای شما</h2>
+      <p style="color: #666; margin-bottom: 20px;">بر اساس کتاب‌هایی که قبلاً به امانت گرفته‌اید</p>
+      <div class="books-grid">
+        {% for book in suggested_books %}
+          <div class="book-card">
+            <h3><a href="{% url 'books:detail' book.id %}">{{ book.title }}</a></h3>
+            <p>{{ book.author }}</p>
+            <p><small>{{ book.year }} | {% for cat in book.category.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small></p>
+            {% if book.rating > 0 %}
+              <div class="book-rating-small">
+                <span class="rating-stars-small">
+                  {% for i in "12345" %}
+                    {% if book.rating >= forloop.counter %}
+                      <span class="star-small filled">★</span>
+                    {% else %}
+                      <span class="star-small">☆</span>
+                    {% endif %}
+                  {% endfor %}
+                </span>
+                <span class="rating-value-small">{{ book.rating|floatformat:1 }}</span>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
   {% if q %}
       <h2>نتایج جستجو برای "{{ q }}"</h2>
   {% else %}
@@ -13,7 +43,21 @@
       <div class="book-card">
         <h3><a href="{% url 'books:detail' book.id %}">{{ book.title }}</a></h3>
         <p>{{ book.author }}</p>
-        <p><small>{{ book.year }} | {{ book.category }}</small></p>
+        <p><small>{{ book.year }} | {% for cat in book.category.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small></p>
+        {% if book.rating > 0 %}
+          <div class="book-rating-small">
+            <span class="rating-stars-small">
+              {% for i in "12345" %}
+                {% if book.rating >= forloop.counter %}
+                  <span class="star-small filled">★</span>
+                {% else %}
+                  <span class="star-small">☆</span>
+                {% endif %}
+              {% endfor %}
+            </span>
+            <span class="rating-value-small">{{ book.rating|floatformat:1 }}</span>
+          </div>
+        {% endif %}
       </div>
     {% empty %}
       <p>کتابی پیدا نشد.</p>

@@ -60,8 +60,9 @@ def borrow_book(request):
         if form.is_valid():
             book = form.cleaned_data['book']
             user = request.user
-
-            if BorrowRequest.objects.filter(user=user, status='approved').exists():
+            
+            
+            if BorrowRequest.objects.filter(user=user, status= 'approved').exists():
                 messages.error(request, "شما هم‌اکنون کتابی به امانت دارید.")
                 return redirect('admin_panel:borrow_book')
 
@@ -71,12 +72,13 @@ def borrow_book(request):
                 return redirect('admin_panel:borrow_book')
 
 
-            if BorrowRequest.objects.filter(book=book, status='approved').exists():
+            if BorrowRequest.objects.filter(book=book, status='rejected').exists():
                 messages.error(request, "این کتاب هم‌اکنون به شخص دیگری اختصاص داده شده است.")
                 return redirect('admin_panel:borrow_book')
 
             borrow_request = form.save(commit=False)
             borrow_request.user = user
+            borrow_request.book = book
             borrow_request.status = 'pending'
             borrow_request.save()
 

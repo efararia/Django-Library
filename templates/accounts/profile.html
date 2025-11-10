@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}پروفایل کاربر{% endblock %}
+
+{% block content %}
+  <div class="book-detail">
+    <h2>پروفایل کاربر: {{ user.username }}</h2>
+    <p><strong>نام کاربری:</strong> {{ user.username }}</p>
+    {% if user.email %}
+      <p><strong>ایمیل:</strong> {{ user.email }}</p>
+    {% endif %}
+    <p><strong>تاریخ عضویت:</strong> {{ date_joined|date:"Y/m/d" }}</p>
+    
+    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+      <h3 style="margin-top: 0;">آمار کتاب‌ها</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center;">
+          <p style="font-size: 24px; font-weight: bold; color: #2b6cb0; margin: 0;">{{ all_borrowed }}</p>
+          <p style="margin: 5px 0 0 0; color: #666;">کل درخواست‌ها</p>
+        </div>
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center;">
+          <p style="font-size: 24px; font-weight: bold; color: #28a745; margin: 0;">{{ currently_borrowed }}</p>
+          <p style="margin: 5px 0 0 0; color: #666;">کتاب‌های در حال امانت</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 30px;">
+    <h3>کتاب‌های در حال امانت (فعال)</h3>
+    
+    {% if active_borrowed %}
+      <div class="books-grid">
+        {% for request in active_borrowed %}
+          <div class="book-card">
+            <h3><a href="{% url 'books:detail' request.book.id %}">{{ request.book.title }}</a></h3>
+            <p><strong>نویسنده:</strong> {{ request.book.author }}</p>
+            <p><strong>سال:</strong> {{ request.book.year }}</p>
+            <p><strong>تاریخ درخواست:</strong> {{ request.requested_at|date:"Y/m/d" }}</p>
+            <p><strong>وضعیت:</strong> 
+              <span style="color: #28a745; font-weight: bold;">تایید شده</span>
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="book-detail" style="margin-top: 15px;">
+        <p>شما در حال حاضر کتابی به امانت ندارید.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <div style="margin-top: 40px;">
+    <h3>تاریخچه درخواست‌ها</h3>
+    
+    {% if history %}
+      <div class="books-grid">
+        {% for request in history %}
+          <div class="book-card">
+            <h3><a href="{% url 'books:detail' request.book.id %}">{{ request.book.title }}</a></h3>
+            <p><strong>نویسنده:</strong> {{ request.book.author }}</p>
+            <p><strong>سال:</strong> {{ request.book.year }}</p>
+            <p><strong>تاریخ درخواست:</strong> {{ request.requested_at|date:"Y/m/d" }}</p>
+            <p><strong>وضعیت:</strong> 
+              {% if request.status == 'pending' %}
+                <span style="color: #ffc107; font-weight: bold;">در انتظار تایید</span>
+              {% elif request.status == 'rejected' %}
+                <span style="color: #dc3545; font-weight: bold;">رد شده</span>
+              {% else %}
+                <span style="color: #6c757d; font-weight: bold;">{{ request.get_status_display }}</span>
+              {% endif %}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="book-detail" style="margin-top: 15px;">
+        <p>شما هنوز درخواستی ثبت نکرده‌اید.</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

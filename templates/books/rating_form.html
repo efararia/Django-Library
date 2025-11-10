@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}ثبت رتبه‌بندی - {{ book.title }}{% endblock %}
+
+{% block content %}
+  <div class="book-detail">
+    <h2>ثبت رتبه‌بندی برای: {{ book.title }}</h2>
+    
+    <form method="post" class="rating-form">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.rating.label_tag }}
+        {{ form.rating }}
+        {% if form.rating.errors %}
+          <div class="error-message">{{ form.rating.errors }}</div>
+        {% endif %}
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">ثبت رتبه‌بندی</button>
+        <a href="{% url 'books:detail' book.id %}" class="btn btn-secondary">انصراف</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
