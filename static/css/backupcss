@@ -1,0 +1,479 @@
+/* === عمومی ===
+body {
+    font-family: Tahoma, Arial, sans-serif;
+    background: #f4f4f9;
+    margin: 0;
+    color: #333;
+}
+
+a {
+    color: #2b6cb0;
+    text-decoration: none;
+}
+
+header,
+footer {
+    background: #2b6cb0;
+    color: white;
+    padding: 15px 30px;
+}
+
+header h1,
+footer p {
+    margin: 0;
+}
+
+main {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* === فرم جستجو === */
+header form {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+header input {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+header button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    background: white;
+    color: #2b6cb0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* === لیست کتاب‌ها === */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.book-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.2s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+}
+
+.book-card h3 {
+    margin: 0 0 8px;
+}
+
+.book-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* === جزئیات کتاب === */
+.book-detail {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.book-detail h2 {
+    margin-top: 0;
+}
+
+.related-books ul {
+    list-style: none;
+    padding: 0;
+}
+
+.related-books li {
+    margin: 5px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 0 4px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn-logout {
+    background-color: #dc3545;
+}
+
+.btn-logout:hover {
+    background-color: #a71d2a;
+}
+
+.btn-register {
+    background-color: #28a745;
+}
+
+.btn-register:hover {
+    background-color: #1e7e34;
+}
+
+header {
+    background-color: #f8f9fa;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 8px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+form input[type="text"] {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* فرم‌های ورودی و ثبت‌نام */
+form.register-form,
+form.login-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fefefe;
+}
+
+form.register-form label,
+form.login-form label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+form.register-form input,
+form.login-form input {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+form.register-form button,
+form.login-form button {
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* admin_panel dashboard */
+.dashboard-container {
+    padding: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.dashboard-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.dashboard-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.dashboard-card {
+    flex: 1 1 200px;
+    background-color: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.dashboard-card p {
+    font-size: 18px;
+    color: #555;
+}
+
+.dashboard-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.dashboard-buttons a {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.dashboard-buttons a:hover {
+    background-color: #45a049;
+}
+
+/* === رتبه‌بندی کتاب === */
+.book-rating {
+    margin: 15px 0;
+    padding: 10px 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.rating-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.rating-stars {
+    display: inline-flex;
+    gap: 2px;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.rating-stars .star {
+    color: #ddd;
+    font-size: 20px;
+}
+
+.rating-stars .star.filled {
+    color: #ffc107;
+}
+
+.rating-value {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.rating-count {
+    font-size: 14px;
+    color: #666;
+}
+
+/* رتبه‌بندی کوچک برای کارت‌های کتاب */
+.book-rating-small {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.rating-stars-small {
+    display: inline-flex;
+    gap: 1px;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.rating-stars-small .star-small {
+    color: #ddd;
+    font-size: 14px;
+}
+
+.rating-stars-small .star-small.filled {
+    color: #ffc107;
+}
+
+.rating-value-small {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* بخش فرم رتبه‌بندی */
+.rating-form-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.rating-form-section p {
+    margin: 0 0 10px 0;
+}
+
+.user-rating-stars {
+    display: inline-flex;
+    gap: 2px;
+    margin: 0 5px;
+}
+
+.btn-rating {
+    background-color: #ffc107;
+    color: #333;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-rating:hover {
+    background-color: #ffb300;
+    color: #333;
+}
+
+/* فرم رتبه‌بندی */
+.rating-form {
+    max-width: 400px;
+    margin: 20px 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.rating-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background: white;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+    color: white;
+}
+
+/* پیام‌ها */
+.messages {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.alert {
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
