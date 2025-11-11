@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}سفارش‌های من{% endblock %}
+
+{% block content %}
+<h2>سفارش‌های من</h2>
+
+<a href="{% url 'orders:order_create' %}" class="btn">ثبت سفارش جدید</a>
+
+<ul>
+    {% for order in orders %}
+    <li>{{ order.book_title }} - {{ order.status }}{% if order.note %} ({{ order.note }}){% endif %}</li>
+    {% empty %}
+    <li>هیچ سفارشی ثبت نشده است.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

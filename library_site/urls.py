@@ -11,4 +11,5 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("", RedirectView.as_view(pattern_name="books:list", permanent=False)),
     path('admin_panel/', include(('admin_panel.urls', 'admin_panel'), namespace='admin_panel')),
+    path('orders/', include('orders.urls')),
 ]

@@ -18,6 +18,8 @@
 
                 {% if user.is_authenticated %}
                 <li><a class="btn" href="{% url 'profile' %}">پروفایل من</a></li>
+                <li><a class="btn" href="{% url 'orders:order_list' %}">سفارش‌های من</a></li>
+
                 <li>
                     <form action="{% url 'logout' %}" method="post" style="display:inline;">
                         {% csrf_token %}

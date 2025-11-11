@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}ثبت سفارش{% endblock %}
+
+{% block content %}
+<h2>ثبت سفارش کتاب جدید</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="book_title">عنوان کتاب:</label>
+    <input type="text" name="book_title" id="book_title" required>
+    <br>
+    <label for="note">توضیحات:</label>
+    <textarea name="note" id="note"></textarea>
+    <br>
+    <button type="submit">ثبت سفارش</button>
+</form>
+{% endblock %}

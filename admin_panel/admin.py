@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import BorrowRequest
 from books.models import Book, Category, Publisher
+from orders.models import Order
+
 
 
 # Register your models here.
@@ -57,3 +59,16 @@ class PublisherAdmin(admin.ModelAdmin):
     def book_count(self, obj):
         return obj.book_set.count()
     book_count.short_description = 'Books Count'
+
+
+#Order
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'book_title', 'status', 'created_at')
+    list_editable = ('status',)
+    list_filter = ('status', 'created_at')
+    search_fields = ('book_title', 'user__username')
+    readonly_fields = ('created_at',)
+
