@@ -22,7 +22,7 @@ class BorrowAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'price', 'stock', 'display_categories', 'publisher', 'book_rating')
+    list_display = ('title', 'author', 'stock', 'display_categories', 'publisher', 'book_rating')
     search_fields = ('title', 'author')
     list_filter = ('category', 'publisher')
     filter_horizontal = ('category',)

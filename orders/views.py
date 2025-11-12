@@ -9,11 +9,15 @@ from books.models import Book
 @login_required
 def order_create(request):
     if request.method == 'POST':
-        book_title = request.POST.get('book_title')
-        note = request.POST.get('note', '')
-        Order.objects.create(user=request.user, book_title=book_title, note=note)
-        return redirect('orders:order_list')
-    return render(request, 'orders/order_create.html')
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.user = request.user
+            order.save()
+            return redirect('orders:order_list')
+    else:
+        form = OrderForm()
+    return render(request, 'orders/order_create.html', {'form': form})
 
 @login_required
 def order_list(request):

@@ -3,16 +3,23 @@
 {% block title %}ثبت سفارش{% endblock %}
 
 {% block content %}
-<h2>ثبت سفارش کتاب جدید</h2>
+<div style="max-width: 500px; margin: 0 auto; text-align: right;">  <!-- مرکز فرم و راست‌چین -->
+    <h2 class="mb-4">ثبت سفارش کتاب جدید</h2>
 
-<form method="post">
-    {% csrf_token %}
-    <label for="book_title">عنوان کتاب:</label>
-    <input type="text" name="book_title" id="book_title" required>
-    <br>
-    <label for="note">توضیحات:</label>
-    <textarea name="note" id="note"></textarea>
-    <br>
-    <button type="submit">ثبت سفارش</button>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="{{ form.book_title.id_for_label }}" class="form-label">نام کتاب</label>
+            {{ form.book_title }}
+        </div>
+        
+        <div class="mb-3">
+            <label for="{{ form.note.id_for_label }}" class="form-label">توضیحات </label>
+            {{ form.note }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary w-100">ثبت سفارش</button>
+    </form>
+</div>
 {% endblock %}

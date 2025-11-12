@@ -26,8 +26,6 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher, on_delete=models.SET_NULL, null=True)
     description = models.TextField()
     cover = models.ImageField(upload_to="covers/", blank=True, null=True)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    discount = models.FloatField(default=0)
     stock = models.PositiveIntegerField(default=0)
     rating = models.FloatField(default=0.0)
 
@@ -43,4 +41,4 @@ class BookRating(models.Model):
     rating = models.PositiveIntegerField(default=0)
 
     class Meta:
-        unique_together = ('user', 'book') #تکرار یک بار
+        unique_together = ('user', 'book')

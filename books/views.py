@@ -1,6 +1,4 @@
 from typing import Any
-
-
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book, BookRating
 from .forms import BookRatingForm
@@ -9,6 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from admin_panel.models import BorrowRequest
+from django.views.generic import ListView
+
 
 # Create your views here.
 
@@ -46,11 +46,13 @@ def book_list(request):
     return render(request, "books/list.html", context)
 
 
+
+
 def book_detail(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     related = Book.objects.filter(category__in=book.category.all()).exclude(pk=book.pk).distinct()
     
-    # محاسبه میانگین رتبه‌بندی
+
     avg_rating = BookRating.objects.filter(book=book).aggregate(Avg('rating'))['rating__avg']
     if avg_rating:
         book.rating = round(avg_rating, 1)
@@ -58,10 +60,10 @@ def book_detail(request, book_id):
     else:
         book.rating = 0.0
     
-    # تعداد 
+
     rating_count = BookRating.objects.filter(book=book).count()
     
-    # بررسی اینکه  قبلاً رتبه داده یا نه
+ 
     user_rating = None
     if request.user.is_authenticated:
         try:

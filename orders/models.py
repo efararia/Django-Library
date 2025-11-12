@@ -10,10 +10,10 @@ class Order(models.Model):
         ('رد شده', 'رد شده'),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book_title = models.CharField(max_length=255, default='کتاب نامشخص')
+    book_title = models.CharField(max_length=255)
     note = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='در انتظار بررسی')
 
     def __str__(self):
         return f"{self.book_title} - {self.user.username}"
